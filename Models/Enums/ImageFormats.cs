@@ -5,8 +5,9 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Formats.Gif;
 using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.Formats.Webp;
+using System.ComponentModel.DataAnnotations;
 
-namespace ImageConverterAPI.Enums
+namespace ImageConvertorAPI.Models.Enums
 {
     public static class ImageFormats
     {
@@ -21,7 +22,13 @@ namespace ImageConverterAPI.Enums
             { "tiff", new TiffEncoder() }
         };
 
-        public static IImageEncoder GetEncoder(string format) =>
-            Formats.ContainsKey(format.ToLower()) ? Formats[format.ToLower()] : throw new KeyNotFoundException("Format not supported.");
+        public static IImageEncoder GetEncoder(string format)
+        {
+            var formatKey = format.ToLower();
+
+            return Formats.ContainsKey(formatKey)
+                ? Formats[formatKey]
+                : throw new KeyNotFoundException("Format not supported.");
+        }
     }
 }

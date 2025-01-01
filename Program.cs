@@ -1,3 +1,4 @@
+using ImageConvertorAPI.Swagger;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,16 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(x => x.AllowAnyOrig
 
 // DI
 builder.Services.AddScoped<IImageConverter, ImageConvertor>();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 524288000; // Set to 500 MB (in bytes)
+});
+
+builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 524288000; // Set to 500 MB
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +40,11 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://github.com/m-ahmedk")
         }
     });
+
+    // Render enums as strings (dropdowns)
+    options.UseInlineDefinitionsForEnums();
+
+    options.SchemaFilter<SwaggerSchemaFilter>();
 });
 
 
@@ -46,6 +62,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

@@ -1,4 +1,4 @@
-﻿namespace ImageConvertorAPI.Interface
+﻿namespace ImageConvertorAPI.Interfaces
 {
     public interface IImageConverter
     {

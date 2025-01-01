@@ -1,3 +1,5 @@
-﻿global using ImageConvertorAPI.Interface;
-global using ImageConverterAPI.Enums;
-global using ImageConvertorAPI.Service;
+﻿global using ImageConvertorAPI.Interfaces;
+global using ImageConvertorAPI.Models;
+global using ImageConvertorAPI.Services;
+global using ImageConvertorAPI.Models.Enums;
+global using ImageConvertorAPI.Models.DTOs;
