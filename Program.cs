@@ -1,4 +1,3 @@
-using ImageConvertorAPI.Swagger;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -47,7 +46,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    options.SchemaFilter<SwaggerSchemaFilter>();
+    //options.SchemaFilter<SwaggerSchemaFilter>();
 });
 
 
