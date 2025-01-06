@@ -2,6 +2,6 @@
 {
     public interface IImageConverter
     {
-        Task<string> ConvertImageAsync(IFormFile file, string fromFormat, string toFormat);
+        Task<string> ConvertImageAsync(IFormFile file, ImageFormat fromFormat, ImageFormat toFormat);
     }
 }

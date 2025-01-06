@@ -1,5 +1,6 @@
 using ImageConvertorAPI.Swagger;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,11 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(optio
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -40,9 +46,6 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://github.com/m-ahmedk")
         }
     });
-
-    // Render enums as strings (dropdowns)
-    options.UseInlineDefinitionsForEnums();
 
     options.SchemaFilter<SwaggerSchemaFilter>();
 });

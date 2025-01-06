@@ -10,7 +10,7 @@ namespace ImageConvertorAPI.Swagger
         {
             if (context.Type == typeof(string) && schema.Description == "ImageFormat")
             {
-                schema.Enum = new[]
+                schema.Enum = new List<IOpenApiAny>
                 {
                     new OpenApiString("bmp"),
                     new OpenApiString("jpeg"),

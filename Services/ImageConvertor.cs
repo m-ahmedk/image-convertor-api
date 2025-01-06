@@ -5,7 +5,7 @@ namespace ImageConvertorAPI.Services
 {
     public class ImageConvertor : IImageConverter
     {
-        public async Task<string> ConvertImageAsync(IFormFile file, string fromFormat, string toFormat)
+        public async Task<string> ConvertImageAsync(IFormFile file, ImageFormat fromFormat, ImageFormat toFormat)
         {
             var toFormatString = toFormat.ToString().ToLower();
 
@@ -18,7 +18,7 @@ namespace ImageConvertorAPI.Services
 
             var outputFilePath = Path.Combine(Path.GetTempPath(), $"converted_{Guid.NewGuid()}.{toFormatString}");
 
-            await image.SaveAsync(outputFilePath, ImageFormats.GetEncoder(toFormat));
+            await image.SaveAsync(outputFilePath, ImageFormats.GetEncoder(toFormatString));
 
             return outputFilePath;
         }
