@@ -1,24 +1,31 @@
-﻿using ImageConvertorAPI.Models.Enums;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 
 namespace ImageConvertorAPI.Services
 {
     public class ImageConvertor : IImageConverter
     {
-        public async Task<string> ConvertImageAsync(IFormFile file, ImageFormat fromFormat, ImageFormat toFormat)
+        private readonly IImageEncodingService _imageEncodingService;
+
+        public ImageConvertor(IImageEncodingService imageEncodingService)
+        {
+            _imageEncodingService = imageEncodingService;
+        }
+
+        public async Task<string> ConvertImageAsync(IFormFile file, ImageFormat toFormat)
         {
             var toFormatString = toFormat.ToString().ToLower();
-
-            if (!ImageFormats.Formats.ContainsKey(toFormatString))
-                throw new ArgumentException("Invalid format specified.");
 
             using var stream = file.OpenReadStream();
 
             using var image = await Image.LoadAsync(stream);
 
-            var outputFilePath = Path.Combine(Path.GetTempPath(), $"converted_{Guid.NewGuid()}.{toFormatString}");
+            string fileExtension = Path.GetExtension(file.Name);
 
-            await image.SaveAsync(outputFilePath, ImageFormats.GetEncoder(toFormatString));
+            string filename = Path.GetFileNameWithoutExtension(file.FileName);
+
+            var outputFilePath = Path.Combine(Path.GetTempPath(), $"converted_{filename}.{toFormatString}");
+
+            await image.SaveAsync(outputFilePath, _imageEncodingService.GetEncoder(toFormatString));
 
             return outputFilePath;
         }

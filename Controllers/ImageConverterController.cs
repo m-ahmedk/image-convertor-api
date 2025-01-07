@@ -26,7 +26,7 @@ namespace ImageConvertorAPI.Controllers
 
             try
             {
-                var outputFilePath = await _imageConverter.ConvertImageAsync(request.File, request.FromFormat, request.ToFormat);
+                var outputFilePath = await _imageConverter.ConvertImageAsync(request.File, request.ToFormat);
                 
                 if (!System.IO.File.Exists(outputFilePath))
                     return StatusCode(500, "File conversion failed.");

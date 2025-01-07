@@ -7,12 +7,7 @@ namespace ImageConvertorAPI.Models
     {
         [Required]
         public IFormFile File { get; set; }
-
-        [Required]
-        public ImageFormat FromFormat { get; set; }
-
         [Required]
         public ImageFormat ToFormat { get; set; }
     }
-
 }

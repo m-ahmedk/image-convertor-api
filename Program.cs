@@ -12,6 +12,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(x => x.AllowAnyOrig
 
 // DI
 builder.Services.AddScoped<IImageConverter, ImageConvertor>();
+builder.Services.AddScoped<IImageEncodingService, ImageEncodingService>();
 
 builder.WebHost.ConfigureKestrel(options =>
 {
