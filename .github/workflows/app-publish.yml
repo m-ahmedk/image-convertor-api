@@ -1,0 +1,23 @@
+name: Build and Push Docker Image to GitHub Container Registry
+
+on:
+  push:
+    branches:
+      - main  # Run workflow when code is pushed to 'main' branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest  # GitHub provides a fresh Ubuntu machine to run this job
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # actions/checkout@v3  # This gets the latest code from your repo
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/m-ahmedk/image-convertor-api:v1.0.0-prod .
+
+      - name: Push Docker Image to GitHub Container Registry
+        run: docker push ghcr.io/m-ahmedk/image-convertor-api:v1.0.0-prod
