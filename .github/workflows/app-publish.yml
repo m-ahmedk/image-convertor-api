@@ -8,8 +8,8 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest  # GitHub provides a fresh Ubuntu machine to run this job
-      permissions:
-        packages: write
+    permissions:
+      packages: write
 
     steps:
       - name: Checkout Repository
