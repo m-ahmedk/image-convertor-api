@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4 # actions/checkout@v3  # This gets the latest code from your repo
+        uses: actions/checkout@v3 #SEE HERE, as originally -> actions/checkout@v3  # This gets the latest code from your repo
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
